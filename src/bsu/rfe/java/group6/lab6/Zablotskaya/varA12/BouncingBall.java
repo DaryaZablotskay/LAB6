@@ -38,7 +38,7 @@ public class BouncingBall implements Runnable {
         }
 // Начальное направление скорости тоже случайно,
 // угол в пределах от 0 до 2PI
-        double angle = Math.random()*2*Math.PI; ?????
+        double angle = Math.random()*2*Math.PI;
 // Вычисляются горизонтальная и вертикальная компоненты скорости
         speedX = 3*Math.cos(angle);
         speedY = 3*Math.sin(angle);
