@@ -21,6 +21,9 @@ public class BouncingBall implements Runnable {
     private int speed;
     private double speedX;
     private double speedY;
+
+    private boolean _paused = false;
+
     // Конструктор класса BouncingBall
     public BouncingBall(Field field) {
 // Необходимо иметь ссылку на поле, по которому прыгает мяч,
@@ -105,9 +108,27 @@ public class BouncingBall implements Runnable {
     public void paint(Graphics2D canvas) {
         canvas.setColor(color);
         canvas.setPaint(color);
-        Ellipse2D.Double ball = new Ellipse2D.Double(x-radius, y-radius,
-                2*radius, 2*radius);
-        canvas.draw(ball);
-        canvas.fill(ball);
+
+       Ellipse2D.Double ball = new Ellipse2D.Double(x-radius, y-radius,
+               2*radius, 2*radius);
+
+       canvas.draw(ball);
+       canvas.fill(ball);
+
+    }
+
+    public boolean getPaused(){
+        return _paused;
+    }
+
+    public void setPaused(boolean paused){
+        _paused = paused;
+    }
+
+    public int getAngel(){
+        if (speedY > 0 && speedX > 0)
+            return 1;
+        else
+            return 0;
     }
 }

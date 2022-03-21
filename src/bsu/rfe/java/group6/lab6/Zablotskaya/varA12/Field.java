@@ -53,11 +53,24 @@ public class Field  extends JPanel{
 // Включить режим паузы
         paused = true;
     }
+
+    //частичная пауза
+    public synchronized void pausePartly() {
+        for (BouncingBall ball : balls){
+            if (ball.getAngel() == 1)
+                ball.setPaused(true);
+        }
+    }
     // Метод синхронизированный, т.е. только один поток может
 // одновременно быть внутри
     public synchronized void resume() {
 // Выключить режим паузы
         paused = false;
+        for (BouncingBall ball : balls){
+            if (ball.getPaused())
+                ball.setPaused(false);
+            notifyAll();
+        }
 // Будим все ожидающие продолжения потоки
         notifyAll();
     }
@@ -70,6 +83,9 @@ public class Field  extends JPanel{
 // внутрь данного метода, засыпает
             wait();
         }
+        if (ball.getPaused())
+            wait();
     }
 
 }
+

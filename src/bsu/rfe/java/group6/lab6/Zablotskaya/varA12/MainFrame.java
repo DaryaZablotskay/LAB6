@@ -16,6 +16,7 @@ public class MainFrame extends JFrame{
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
     private JMenuItem pauseMenuItem;
+    private JMenuItem pausePartlyItem;
     private JMenuItem resumeMenuItem;
     // Поле, по которому прыгают мячи
     private Field field = new Field();
@@ -48,24 +49,42 @@ public class MainFrame extends JFrame{
         ballMenu.add(addBallAction);
         JMenu controlMenu = new JMenu("Управление");
         menuBar.add(controlMenu);
-        Action pauseAction = new AbstractAction("Приостановить движение"){
+        Action pauseAction = new AbstractAction("Приостановить движение всех"){
             public void actionPerformed(ActionEvent event) {
                 field.pause();
                 pauseMenuItem.setEnabled(false);
                 resumeMenuItem.setEnabled(true);
+                pausePartlyItem.setEnabled(false);
             }
         };
         pauseMenuItem = controlMenu.add(pauseAction);
         pauseMenuItem.setEnabled(false);
+
         Action resumeAction = new AbstractAction("Возобновить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.resume();
                 pauseMenuItem.setEnabled(true);
+                pausePartlyItem.setEnabled(true);
                 resumeMenuItem.setEnabled(false);
             }
         };
         resumeMenuItem = controlMenu.add(resumeAction);
-        resumeMenuItem.setEnabled(false);
+        resumeMenuItem.setEnabled(true);
+
+
+
+        Action pausePartlyAction = new AbstractAction("Частично приостановить движение"){
+            public void actionPerformed(ActionEvent event) {
+                field.pausePartly();
+                pauseMenuItem.setEnabled(false);
+                resumeMenuItem.setEnabled(true);
+                pausePartlyItem.setEnabled(false);
+            }
+        };
+
+        pausePartlyItem = controlMenu.add(pausePartlyAction);
+        pausePartlyItem.setEnabled(true);
+
 // Добавить в центр граничной компоновки поле Field
         getContentPane().add(field, BorderLayout.CENTER);
     }
